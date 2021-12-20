@@ -5,6 +5,10 @@
  */
 
 module.exports = {
-  /* Your site config here */
+  siteMetadata: {
+    title: `DG Music`,
+    description: `Music from Deven Goratela`,
+    author: `Deven Goratela`,
+  },
   plugins: [],
 }
