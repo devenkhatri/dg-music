@@ -1,68 +1,60 @@
- import * as React from "react"
- import { Helmet } from "react-helmet"
- import { useStaticQuery, graphql } from "gatsby"
- 
- function SEO({ description, lang, meta, title }) {
-   const { site } = useStaticQuery(
-     graphql`
+import * as React from "react"
+import { Helmet } from "react-helmet"
+import { useStaticQuery, graphql } from "gatsby"
+
+function SEO({ title, description, image }) {
+    const { site, imageSharp } = useStaticQuery(
+        graphql`
        query {
          site {
            siteMetadata {
              title
              description
              author
+             url
            }
          }
+         imageSharp(fluid: {originalName: {eq: "icon.png"}}) {
+            fluid {
+              src
+            }
+          }
        }
      `
-   )
- 
-   const metaDescription = description || site.siteMetadata?.description
-   const defaultTitle = site.siteMetadata?.title
- 
-   return (
-     <Helmet
-       htmlAttributes={{
-         lang,
-       }}
-       title={title}
-       titleTemplate={defaultTitle ? `%s | ${defaultTitle}` : null}
-       meta={[
-         {
-           name: `description`,
-           content: metaDescription,
-         },
-         {
-           property: `og:title`,
-           content: title,
-         },
-         {
-           property: `og:description`,
-           content: metaDescription,
-         },
-         {
-           property: `og:type`,
-           content: `website`,
-         },
-         {
-           name: `twitter:card`,
-           content: `summary`,
-         },
-         {
-           name: `twitter:creator`,
-           content: site.siteMetadata?.author || ``,
-         },
-         {
-           name: `twitter:title`,
-           content: title,
-         },
-         {
-           name: `twitter:description`,
-           content: metaDescription,
-         },
-       ].concat(meta)}
-     />
-   )
- }
- 
- export default SEO
+    )
+
+    const defaultTitle = site.siteMetadata?.title
+    const metaTitle = title || site.siteMetadata?.title;
+    const metaDescription = description || site.siteMetadata?.description;
+    const metaAuthor = site.siteMetadata?.author || '';
+    const metaUrl = site.siteMetadata?.url || '';
+    const metaImage = image || imageSharp?.fluid.src;
+
+    return (
+        <Helmet
+            title={metaTitle}
+            titleTemplate={defaultTitle ? `%s | ${defaultTitle}` : null}
+        >
+            {/* General tags */}
+            <title>{metaTitle}</title>
+            <meta name="description" content={metaDescription} />
+            <meta name="image" content={metaImage} />
+
+            {/* OpenGraph tags */}
+            <meta property="og:url" content={metaUrl} />
+            <meta property="og:type" content="article" />
+            <meta property="og:title" content={metaTitle} />
+            <meta property="og:description" content={metaDescription} />
+            <meta property="og:image" content={metaImage} />
+
+            {/* Twitter Card tags */}
+            <meta name="twitter:card" content="summary" />
+            <meta name="twitter:title" content={metaTitle} />
+            <meta name="twitter:description" content={metaDescription} />
+            <meta name="twitter:creator" content={metaAuthor} />
+            <meta name="twitter:image" content={metaImage} />
+        </Helmet>
+    )
+}
+
+export default SEO

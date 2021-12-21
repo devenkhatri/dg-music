@@ -7,7 +7,7 @@ import {Placeholder} from 'semantic-ui-react'
 export default function Home() {
   return (
     <Layout>
-    {/* <SEO title="Home" /> */}
+    <SEO title="Home" />
     <h1>Hi people</h1>
     <p>Welcome to your new Gatsby site.</p>
       <Placeholder>

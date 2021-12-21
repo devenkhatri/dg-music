@@ -40,10 +40,9 @@ const Layout = ({ children }) => {
           setVisible={setVisible}
           visible={visible}
         />
-        <Container as="main">{children}</Container>
+        <Container as="main" style={{innerHeight: '100vw'}}>{children}</Container>
         <Segment attached color="blue" inverted textAlign="center" as="footer">
-          © {new Date().getFullYear()}, Built with
-          <a href="https://www.gatsbyjs.com">Gatsby</a>
+          © {new Date().getFullYear()}, Built with Gatsby
         </Segment>
       </Sidebar.Pusher>
     </Sidebar.Pushable>
