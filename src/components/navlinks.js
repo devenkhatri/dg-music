@@ -9,8 +9,8 @@ const NavLinks = () => {
       <Button as={Link} color="blue" to="/">
         Home
       </Button>
-      <Button as={Link} color="blue" to="/page-2/">
-        Second page
+      <Button as={Link} color="blue" to="/details">
+        Detail Page
       </Button>
     </>
   )

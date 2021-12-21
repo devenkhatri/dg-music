@@ -34,14 +34,14 @@ const Layout = ({ children }) => {
           <NavLinks />
         </Button.Group>
       </Sidebar>
-      <Sidebar.Pusher dimmed={visible}>
+      <Sidebar.Pusher dimmed={visible} style={{position:'relative'}}>
         <Navbar
           siteTitle={data.site.siteMetadata?.title}
           setVisible={setVisible}
           visible={visible}
         />
-        <Container as="main" style={{innerHeight: '100vw'}}>{children}</Container>
-        <Segment attached color="blue" inverted textAlign="center" as="footer">
+        <Container as="main" style={{padding: '1rem 0'}}>{children}</Container>
+        <Segment color="blue" inverted textAlign="center" as="footer">
           © {new Date().getFullYear()}, Built with Gatsby
         </Segment>
       </Sidebar.Pusher>
