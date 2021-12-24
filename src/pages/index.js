@@ -3,10 +3,10 @@ import Layout from "../components/layout"
 import SEO from "../components/seo"
 import { Header, Card, Icon, Image } from 'semantic-ui-react'
 import { graphql } from 'gatsby';
+import SongPlayer from '../components/songplayer';
 
 export default function Home({data}) {
   const allRecordings = (data.allRecordings && data.allRecordings.edges) || []
-  console.log("******** ",allRecordings)
   return (
     <Layout>
       <SEO title="Recordings" />
@@ -16,16 +16,20 @@ export default function Home({data}) {
       </Header>
       <Card.Group doubling itemsPerRow={3} stackable>
         {allRecordings.map(({node})=>(
-          <Card as="a" key={node.recordId} href={`/recording/${node.fields.slug}`}>
-          <Image src={node.data.CoverImage && node.data.CoverImage[0] && node.data.CoverImage[0].url} size='big' circular />
+          <Card key={node.recordId}>
+          <Image 
+            as="a"
+            src={node.data.CoverImage && node.data.CoverImage[0] && node.data.CoverImage[0].url} size='big' circular 
+            href={`/recording/${node.fields.slug}`}
+          />
           <Card.Content>
-            <Card.Header>{node.data.SongTitle}</Card.Header>
+            <Card.Header as="a" href={`/recording/${node.fields.slug}`}>{node.data.SongTitle}</Card.Header>
             <Card.Meta>
               <span className='date'>{node.data.RecordingDate}</span>
             </Card.Meta>
-            {/* <Card.Description>
-              Matthew is a musician living in Nashville.
-            </Card.Description> */}
+            <Card.Description>
+              <SongPlayer src={node.data.MediaFile.url} />
+            </Card.Description>
           </Card.Content>
           <Card.Content extra>
             <a>

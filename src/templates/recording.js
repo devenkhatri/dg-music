@@ -2,20 +2,33 @@ import React from 'react'
 import { graphql } from 'gatsby'
 import Layout from "../components/layout"
 import SEO from "../components/seo"
-import { Header, Segment, Icon, Placeholder } from 'semantic-ui-react'
+import { Header, Segment, Icon, Breadcrumb, Image } from 'semantic-ui-react'
+import SongPlayer from '../components/songplayer'
 
 
 export default function Recording({ data }) {
-
+    const title = `Listening to '${data.airtable.data.SongTitle}' from '${data.airtable.data.Singer}'`
     return (
         <Layout>
-            <SEO title="Detail" />
+            <SEO 
+                title={title} 
+                image={data.airtable.data.CoverImage && data.airtable.data.CoverImage[0] && data.airtable.data.CoverImage[0].url}
+            />
             <Header as='h1' icon textAlign='center'>
                 <Icon name='sound' circular inverted color="blue" />
-                <Header.Content>Details of Songs</Header.Content>
+                <Header.Content>{title}</Header.Content>
             </Header>
-            <Segment padded='very'>
-                {data.airtable.data.SongTitle}
+            <Breadcrumb>
+                <Breadcrumb.Section href="/">Home</Breadcrumb.Section>
+                <Breadcrumb.Divider icon='right angle' />
+                <Breadcrumb.Section active>{data.airtable.data.SongTitle}</Breadcrumb.Section>
+            </Breadcrumb>
+            <Segment inverted>
+            <SongPlayer src={data.airtable.data.MediaFile.url} isAutoPlay={true} layout="stacked-reverse" />
+                <Image
+                    src={data.airtable.data.CoverImage && data.airtable.data.CoverImage[0] && data.airtable.data.CoverImage[0].url} fluid
+                />
+                
             </Segment>
         </Layout>
     )

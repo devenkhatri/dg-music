@@ -7,10 +7,7 @@ const NavLinks = () => {
   return (
     <>
       <Button as={Link} color="blue" to="/">
-        Home
-      </Button>
-      <Button as={Link} color="blue" to="/details">
-        Detail Page
+        Recordings
       </Button>
     </>
   )
