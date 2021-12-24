@@ -10,8 +10,8 @@ export default function Recording({ data }) {
     const title = `Listening to '${data.airtable.data.SongTitle}' from '${data.airtable.data.Singer}'`
     return (
         <Layout>
-            <SEO 
-                title={title} 
+            <SEO
+                title={title}
                 image={data.airtable.data.CoverImage && data.airtable.data.CoverImage[0] && data.airtable.data.CoverImage[0].url}
             />
             <Header as='h1' icon textAlign='center'>
@@ -24,11 +24,11 @@ export default function Recording({ data }) {
                 <Breadcrumb.Section active>{data.airtable.data.SongTitle}</Breadcrumb.Section>
             </Breadcrumb>
             <Segment inverted>
-            <SongPlayer src={data.airtable.data.MediaFile.url} isAutoPlay={true} layout="stacked-reverse" />
+                <SongPlayer src={data.airtable.data.MediaFile && data.airtable.data.MediaFile[0] && data.airtable.data.MediaFile[0].url} isAutoPlay={true} layout="stacked-reverse" />
                 <Image
                     src={data.airtable.data.CoverImage && data.airtable.data.CoverImage[0] && data.airtable.data.CoverImage[0].url} fluid
                 />
-                
+
             </Segment>
         </Layout>
     )

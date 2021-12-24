@@ -28,7 +28,7 @@ export default function Home({data}) {
               <span className='date'>{node.data.RecordingDate}</span>
             </Card.Meta>
             <Card.Description>
-              <SongPlayer src={node.data.MediaFile.url} />
+            <SongPlayer src={data.airtable.data.MediaFile && data.airtable.data.MediaFile[0] && data.airtable.data.MediaFile[0].url} isAutoPlay={false} layout="stacked-reverse" />
             </Card.Description>
           </Card.Content>
           <Card.Content extra>
