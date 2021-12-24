@@ -28,7 +28,6 @@ export default function Recording({ data }) {
                 <Image
                     src={data.airtable.data.CoverImage && data.airtable.data.CoverImage[0] && data.airtable.data.CoverImage[0].url} fluid
                 />
-
             </Segment>
         </Layout>
     )
