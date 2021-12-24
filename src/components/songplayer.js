@@ -2,10 +2,10 @@ import React from 'react';
 import AudioPlayer from 'react-h5-audio-player';
 import 'react-h5-audio-player/lib/styles.css';
 
-const SongPlayer = ({ url, isAutoPlay, layout }) => {
+const SongPlayer = ({ src, isAutoPlay, layout }) => {
     return (
         <AudioPlayer
-            src={url}
+            src={src}
             autoPlay={isAutoPlay}
             loop
             showJumpControls={false}
