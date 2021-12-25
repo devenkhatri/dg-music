@@ -5,7 +5,7 @@ import { Header, Card, Icon, Image } from 'semantic-ui-react'
 import { graphql } from 'gatsby';
 import SongPlayer from '../components/songplayer';
 
-export default function Home({data}) {
+export default function Home({ data }) {
   const allRecordings = (data.allRecordings && data.allRecordings.edges) || []
   return (
     <Layout>
@@ -15,29 +15,30 @@ export default function Home({data}) {
         <Header.Content>List of Recordings</Header.Content>
       </Header>
       <Card.Group doubling itemsPerRow={3} stackable>
-        {allRecordings.map(({node})=>(
+        {allRecordings.map(({ node }) => (
           <Card key={node.recordId}>
-          <Image 
-            as="a"
-            src={node.data.CoverImage && node.data.CoverImage[0] && node.data.CoverImage[0].url} size='big' circular 
-            href={`/recording/${node.fields.slug}`}
-          />
-          <Card.Content>
-            <Card.Header as="a" href={`/recording/${node.fields.slug}`}>{node.data.SongTitle}</Card.Header>
-            <Card.Meta>
-              <span className='date'>{node.data.RecordingDate}</span>
-            </Card.Meta>
-            <Card.Description>
-            <SongPlayer src={node.data.MediaFile && node.data.MediaFile[0] && node.data.MediaFile[0].url} isAutoPlay={false} layout="stacked-reverse" />
-            </Card.Description>
-          </Card.Content>
-          <Card.Content extra>
-            <a>
-              <Icon name='user' />
-              {node.data.Singer}
+            <a href={`/recording/${node.fields.slug}`}>
+              <Image
+                src={node.data.CoverImage && node.data.CoverImage[0] && node.data.CoverImage[0].url} fluid
+                style={{ height: '13rem', objectFit: 'cover' }}
+              />
             </a>
-          </Card.Content>
-        </Card>
+            <Card.Content>
+              <Card.Header as="a" href={`/recording/${node.fields.slug}`}>{node.data.SongTitle}</Card.Header>
+              <Card.Meta>
+                <span className='date'>{node.data.RecordingDate}</span>
+              </Card.Meta>
+              <Card.Description>
+                <SongPlayer src={node.data.MediaFile && node.data.MediaFile[0] && node.data.MediaFile[0].url} isAutoPlay={false} layout="stacked-reverse" />
+              </Card.Description>
+            </Card.Content>
+            <Card.Content extra>
+              <a>
+                <Icon name='user' />
+                {node.data.Singer}
+              </a>
+            </Card.Content>
+          </Card>
         ))}
       </Card.Group>
       <div id="disqus_recommendations"></div>
