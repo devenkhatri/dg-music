@@ -55,20 +55,11 @@ function SEO({ title, description, image }) {
             <meta name="twitter:image" content={metaImage} />
             <script type="text/javascript">
             {`
-              var jv_comments_config = {
-                "website_id": "544",
-                "position": "right",
-                "is_open": "false"
-              };
-
-                (function () {
-                  var d = document, s = d.createElement("script");
-                  s.src = "https://widget.jointcomments.com/e/embed.prod.js";
-                  if (/MSIE|Trident/.test(window.navigator.userAgent)) {
-                      s.src = "https://widget.jointcomments.com/e/embed.prodIE.js";
-                  }
-                  (d.head || d.body).appendChild(s);
-                })();
+              (function() { // REQUIRED CONFIGURATION VARIABLE: EDIT THE SHORTNAME BELOW
+              var d = document, s = d.createElement('script'); // IMPORTANT: Replace EXAMPLE with your forum shortname!
+              s.src = 'https://devengoratela.disqus.com/recommendations.js'; s.setAttribute('data-timestamp', +new Date());
+              (d.head || d.body).appendChild(s);
+              })();
             `}
 			      </script>
         </Helmet>

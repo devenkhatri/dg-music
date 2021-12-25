@@ -40,7 +40,7 @@ export default function Home({data}) {
         </Card>
         ))}
       </Card.Group>
-
+      <div id="disqus_recommendations"></div>
     </Layout>
   );
 }

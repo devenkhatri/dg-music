@@ -4,7 +4,7 @@ import Layout from "../components/layout"
 import SEO from "../components/seo"
 import { Header, Segment, Icon, Breadcrumb, Image } from 'semantic-ui-react'
 import SongPlayer from '../components/songplayer'
-
+import { Disqus } from 'gatsby-plugin-disqus';
 
 export default function Recording({ data }) {
     const title = `Listening to '${data.airtable.data.SongTitle}' from '${data.airtable.data.Singer}'`
@@ -29,6 +29,12 @@ export default function Recording({ data }) {
                     src={data.airtable.data.CoverImage && data.airtable.data.CoverImage[0] && data.airtable.data.CoverImage[0].url} fluid
                 />
             </Segment>
+            <Disqus
+                identifier={data.airtable.recordId}
+                title={title}
+                url='PAGE_URL'
+            />
+            <div id="disqus_recommendations"></div>
         </Layout>
     )
 }
@@ -39,6 +45,9 @@ query GetRecording($recordId: String!){
         id
         table
         recordId
+        fields {
+          slug
+        }
         data {
           SongTitle
           Singer
