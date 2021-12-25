@@ -42,13 +42,13 @@ function SEO({ title, description, image }) {
 
             {/* OpenGraph tags */}
             <meta property="og:url" content={metaUrl} />
-            <meta property="og:type" content="article" />
+            <meta property="og:type" content="website" />
             <meta property="og:title" content={metaTitle} />
             <meta property="og:description" content={metaDescription} />
             <meta property="og:image" content={metaImage} />
 
             {/* Twitter Card tags */}
-            <meta name="twitter:card" content="summary" />
+            <meta name="twitter:card" content="summary_large_image" />
             <meta name="twitter:title" content={metaTitle} />
             <meta name="twitter:description" content={metaDescription} />
             <meta name="twitter:creator" content={metaAuthor} />
