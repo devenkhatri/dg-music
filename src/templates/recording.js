@@ -2,12 +2,15 @@ import React from 'react'
 import { graphql } from 'gatsby'
 import Layout from "../components/layout"
 import SEO from "../components/seo"
-import { Header, Segment, Icon, Breadcrumb, Image } from 'semantic-ui-react'
+import { Header, Segment, Icon, Breadcrumb, Image} from 'semantic-ui-react'
 import SongPlayer from '../components/songplayer'
 import { Disqus } from 'gatsby-plugin-disqus';
+import SharingModule from '../components/share'
 
 export default function Recording({ data }) {
     const title = `Listening to '${data.airtable.data.SongTitle}' from '${data.airtable.data.Singer}'`
+    const currentUrl = data.site.siteMetadata.url + '/recording/' + data.airtable.fields.slug
+    console.log(currentUrl)
     return (
         <Layout>
             <SEO
@@ -17,6 +20,7 @@ export default function Recording({ data }) {
             <Header as='h1' icon textAlign='center'>
                 <Icon name='sound' circular inverted color="blue" />
                 <Header.Content>{title}</Header.Content>
+                <SharingModule shareUrl={currentUrl} title={title} />              
             </Header>
             <Breadcrumb>
                 <Breadcrumb.Section href="/">Home</Breadcrumb.Section>
@@ -32,7 +36,7 @@ export default function Recording({ data }) {
             <Disqus
                 identifier={data.airtable.recordId}
                 title={title}
-                url='PAGE_URL'
+                url={currentUrl}
             />
             <div id="disqus_recommendations"></div>
         </Layout>
@@ -60,4 +64,9 @@ query GetRecording($recordId: String!){
           }
         }
     }
+    site {
+        siteMetadata {
+          url
+        }
+      }
 }`
