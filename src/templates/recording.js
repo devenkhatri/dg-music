@@ -15,7 +15,7 @@ export default function Recording({ data }) {
         <Layout>
             <SEO
                 title={title}
-                image={data.airtable.data.CoverImage && data.airtable.data.CoverImage[0] && data.airtable.data.CoverImage[0].url}
+                image={data.airtable.data.CoverImage && data.airtable.data.CoverImage.localFiles && data.airtable.data.CoverImage.localFiles[0].childImageSharp.fluid.src}
             />
             <Header as='h1' icon textAlign='center'>
                 <Icon name='sound' circular inverted color="blue" />
@@ -30,7 +30,7 @@ export default function Recording({ data }) {
             <Segment inverted>
                 <SongPlayer src={data.airtable.data.MediaFile && data.airtable.data.MediaFile[0] && data.airtable.data.MediaFile[0].url} isAutoPlay={true} layout="stacked-reverse" />
                 <Image
-                    src={data.airtable.data.CoverImage && data.airtable.data.CoverImage[0] && data.airtable.data.CoverImage[0].url} fluid
+                    src={data.airtable.data.CoverImage && data.airtable.data.CoverImage.localFiles && data.airtable.data.CoverImage.localFiles[0].childImageSharp.fluid.src} fluid
                 />
             </Segment>
             <Disqus
@@ -60,7 +60,13 @@ query GetRecording($recordId: String!){
             url
           }
           CoverImage {
-            url
+            localFiles {
+              childImageSharp {
+                fluid {
+                  src
+                }
+              }
+            }
           }
         }
     }

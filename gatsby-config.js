@@ -29,6 +29,7 @@ module.exports = {
           {
             baseId: process.env.AIRTABLE_BASE,
             tableName: "Recordings",
+            mapping: { 'CoverImage': 'fileNode' },
           },
         ]
       }

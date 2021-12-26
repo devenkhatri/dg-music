@@ -19,7 +19,7 @@ export default function Home({ data }) {
           <Card key={node.recordId}>
             <a href={`/recording/${node.fields.slug}`}>
               <Image
-                src={node.data.CoverImage && node.data.CoverImage[0] && node.data.CoverImage[0].url} fluid
+                src={node.data.CoverImage && node.data.CoverImage.localFiles && node.data.CoverImage.localFiles[0].childImageSharp.fluid.src} fluid
                 style={{ height: '13rem', objectFit: 'cover' }}
               />
             </a>
@@ -66,7 +66,13 @@ query {
             url
           }
           CoverImage {
-            url
+            localFiles {
+              childImageSharp {
+                fluid {
+                  src
+                }
+              }
+            }
           }
         }
       }

@@ -28,7 +28,8 @@ function SEO({ title, description, image }) {
   const metaDescription = description || site.siteMetadata?.description;
   const metaAuthor = site.siteMetadata?.author || '';
   const metaUrl = site.siteMetadata?.url || '';
-  const metaImage = image || imageSharp?.fluid.src;
+  let metaImage = image || imageSharp?.fluid.src;
+  metaImage = metaUrl+metaImage;
 
   return (
     <Helmet
