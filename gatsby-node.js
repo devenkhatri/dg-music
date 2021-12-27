@@ -17,10 +17,12 @@ exports.createPages = ({ graphql, actions }) => {
         const result = await graphql(`
     {
         allRecordings: allAirtable(
+          sort: {fields: data___RecordingDate, order: DESC}
           filter: {table: {eq: "Recordings"}}
         ) {
           edges {
             node {
+              id
               recordId
               data {
                 SongTitle
@@ -32,13 +34,19 @@ exports.createPages = ({ graphql, actions }) => {
       }
     `)
         // For each path, create page and choose a template.
-        // values in context Object are available in that page's query
-        result.data.allRecordings.edges.forEach(({ node }) => {
+        // values in context Object are available in that page's query        
+        result.data.allRecordings.edges.forEach(({ node },index) => {
+          // console.log("**",result.data.allRecordings.edges[index])
+          const previousId = index === 0 ? null : result.data.allRecordings.edges[index - 1].node.id
+          const nextId = index === result.data.allRecordings.edges.length - 1 ? null : result.data.allRecordings.edges[index + 1].node.id
+          // console.log("****",previousId,nextId)
             createPage({
                 path: `/recording/${generateSlug(node)}`,
                 component: path.resolve(`./src/templates/recording.js`),
                 context: {
                     recordId: node.recordId,
+                    previousId,
+                    nextId,
                 },
             })
         });
