@@ -20,8 +20,14 @@ export default function Recording({ data }) {
       <Header as='h1' icon textAlign='center'>
         <Icon name='sound' circular inverted color="blue" />
         <Header.Content>{title}</Header.Content>
-        <SharingModule shareUrl={currentUrl} title={title} />
-        <nav>
+        <SharingModule shareUrl={currentUrl} title={title} />        
+      </Header>
+      <Breadcrumb>
+        <Breadcrumb.Section href="/">Home</Breadcrumb.Section>
+        <Breadcrumb.Divider icon='right angle' />
+        <Breadcrumb.Section active>{data.airtable.data.SongTitle}</Breadcrumb.Section>
+      </Breadcrumb>
+      <nav>
           <ul
             style={{
               display: `flex`,
@@ -29,16 +35,17 @@ export default function Recording({ data }) {
               justifyContent: `space-between`,
               listStyle: `none`,
               padding: 0,
+              fontSize: '1.5rem'
             }}
           >
-            <li>
+            <li style={{padding: '1rem 0'}}>
               {previous && (
                 <Link to={`/recording/${previous.fields.slug}`} rel="prev">
                   ← {previous.data.SongTitle}
                 </Link>
               )}
             </li>
-            <li>
+            <li style={{padding: '1rem 0'}}>
               {next && (
                 <Link to={`/recording/${next.fields.slug}`} rel="next">
                   {next.data.SongTitle} →
@@ -47,12 +54,6 @@ export default function Recording({ data }) {
             </li>
           </ul>
         </nav>
-      </Header>
-      <Breadcrumb>
-        <Breadcrumb.Section href="/">Home</Breadcrumb.Section>
-        <Breadcrumb.Divider icon='right angle' />
-        <Breadcrumb.Section active>{data.airtable.data.SongTitle}</Breadcrumb.Section>
-      </Breadcrumb>
       <Segment inverted>
         <SongPlayer src={data.airtable.data.MediaFile && data.airtable.data.MediaFile[0] && data.airtable.data.MediaFile[0].url} isAutoPlay={true} layout="stacked-reverse" />
         <Image
