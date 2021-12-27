@@ -9,7 +9,7 @@ import SharingModule from '../components/share'
 
 export default function Recording({ data }) {
     const title = `Listening to '${data.airtable.data.SongTitle}' from '${data.airtable.data.Singer}'`
-    const currentUrl = data.site.siteMetadata.url + '/recording/' + data.airtable.fields.slug
+    const currentUrl = data.site.siteMetadata.siteUrl + '/recording/' + data.airtable.fields.slug
     console.log(currentUrl)
     return (
         <Layout>
@@ -72,7 +72,7 @@ query GetRecording($recordId: String!){
     }
     site {
         siteMetadata {
-          url
+          siteUrl
         }
       }
 }`

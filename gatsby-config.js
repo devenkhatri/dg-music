@@ -7,7 +7,7 @@ module.exports = {
     title: `DG Music`,
     description: `Music from Deven Goratela`,
     author: `Deven Goratela`,
-    url: `https://music.devengoratela.com`,
+    siteUrl: `https://music.devengoratela.com`,
   },
   plugins: [
     `gatsby-plugin-react-helmet`,

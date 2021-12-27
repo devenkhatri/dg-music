@@ -11,7 +11,7 @@ function SEO({ title, description, image }) {
              title
              description
              author
-             url
+             siteUrl
            }
          }
          imageSharp(fluid: {originalName: {eq: "icon.png"}}) {
@@ -27,7 +27,7 @@ function SEO({ title, description, image }) {
   const metaTitle = title || site.siteMetadata?.title;
   const metaDescription = description || site.siteMetadata?.description;
   const metaAuthor = site.siteMetadata?.author || '';
-  const metaUrl = site.siteMetadata?.url || '';
+  const metaUrl = site.siteMetadata?.siteUrl || '';
   let metaImage = image || imageSharp?.fluid.src;
   metaImage = metaUrl+metaImage;
 
