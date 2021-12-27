@@ -35,25 +35,59 @@ function SEO({ title, description, image }) {
     <Helmet
       title={metaTitle}
       titleTemplate={defaultTitle ? `%s | ${defaultTitle}` : null}
+      meta={[
+        {
+          name: `description`,
+          content: metaDescription,
+        },
+        {
+          property: `og:title`,
+          content: metaTitle,
+        },
+        {
+          property: `og:description`,
+          content: metaDescription,
+        },
+        {
+          property: `og:type`,
+          content: `website`,
+        },
+        {
+          property: `og:image`,
+          content: metaImage,
+        },
+        {
+          name: `twitter:card`,
+          content: `summary`,
+        },
+        {
+          name: `twitter:title`,
+          content: metaTitle,
+        },
+        {
+          name: `twitter:description`,
+          content: metaDescription,
+        },
+      ]}
     >
       {/* General tags */}
-      <title>{metaTitle}</title>
+      {/* <title>{metaTitle}</title>
       <meta name="title" content={metaTitle} />
-      <meta name="description" content={metaDescription} />
+      <meta name="description" content={metaDescription} /> */}
       {/* <meta name="image" content={metaImage} /> */}
 
       {/* OpenGraph tags */}
-      <meta property="og:url" content={metaUrl} />
+      {/* <meta property="og:url" content={metaUrl} />
       <meta property="og:type" content="website" />
       <meta property="og:title" content={metaTitle} />
-      <meta property="og:description" content={metaDescription} />
+      <meta property="og:description" content={metaDescription} /> */}
       {/* <meta property="og:image" content={metaImage} /> */}
 
       {/* Twitter Card tags */}
-      <meta name="twitter:card" content="summary" />
+      {/* <meta name="twitter:card" content="summary" />
       <meta name="twitter:title" content={metaTitle} />
       <meta name="twitter:description" content={metaDescription} />
-      <meta name="twitter:creator" content={metaAuthor} />
+      <meta name="twitter:creator" content={metaAuthor} /> */}
       {/* <meta name="twitter:image" content={metaImage} /> */}
       <script type="text/javascript">
         {`
