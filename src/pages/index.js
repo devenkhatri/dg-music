@@ -1,12 +1,15 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 import { Header, Card, Icon, Image } from 'semantic-ui-react'
 import { graphql } from 'gatsby';
 import SongPlayer from '../components/songplayer';
+import { useGlobal } from '../globalstore';
 
 export default function Home({ data }) {
   const allRecordings = (data.allRecordings && data.allRecordings.edges) || []
+  const [globalState, globalActions] = useGlobal();
+  console.log("***** globalState",globalState)
   return (
     <Layout>
       <SEO title="Recordings" />
@@ -18,10 +21,10 @@ export default function Home({ data }) {
         {allRecordings.map(({ node }) => (
           <Card key={node.recordId}>
             <a href={`/recording/${node.fields.slug}`}>
-              <Image
+              {/* <Image
                 src={node.data.CoverImage && node.data.CoverImage.localFiles && node.data.CoverImage.localFiles[0].childImageSharp.fluid.src} fluid
                 style={{ height: '13rem', objectFit: 'cover' }}
-              />
+              /> */}
             </a>
             <Card.Content>
               <Card.Header as="a" href={`/recording/${node.fields.slug}`}>{node.data.SongTitle}</Card.Header>
@@ -29,14 +32,15 @@ export default function Home({ data }) {
                 <span className='date'>{node.data.RecordingDate}</span>
               </Card.Meta>
               <Card.Description>
-                <SongPlayer src={node.data.MediaFile && node.data.MediaFile[0] && node.data.MediaFile[0].url} isAutoPlay={false} layout="stacked-reverse" />
+                <SongPlayer src={node.data.MediaFile && node.data.MediaFile[0] && node.data.MediaFile[0].url} isAutoPlay={false} layout="stacked-reverse" recordId={node.recordId} />
               </Card.Description>
             </Card.Content>
             <Card.Content extra>
-              <a>
-                <Icon name='user' />
-                {node.data.Singer}
-              </a>
+                <Icon name='play' />
+                {node.data.Plays} - {globalActions.getPlayCount(node.recordId)} = {globalState.counter}
+                <button type="button" onClick={() => globalActions.addToCounter(1)}>
+                  +1 to global
+                </button>
             </Card.Content>
           </Card>
         ))}
@@ -61,6 +65,7 @@ query {
         data {
           SongTitle
           Singer
+          Plays
           RecordingDate(formatString: "MMM DD, YYYY")
           MediaFile {
             url

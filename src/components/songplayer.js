@@ -1,8 +1,10 @@
 import React from 'react';
 import AudioPlayer from 'react-h5-audio-player';
 import 'react-h5-audio-player/lib/styles.css';
+import { useGlobal } from '../globalstore';
 
-const SongPlayer = ({ src, isAutoPlay, layout }) => {
+const SongPlayer = ({ src, isAutoPlay, layout, recordId }) => {
+    const [globalState, globalActions] = useGlobal();
     return (
         <AudioPlayer
             src={src}
@@ -10,7 +12,7 @@ const SongPlayer = ({ src, isAutoPlay, layout }) => {
             loop
             showJumpControls={false}
             layout={layout}
-            onPlay={e => console.log("onPlay")}
+            onPlay={e => recordId && globalActions.incrementPlayCount(recordId)}
         />
     );
 }

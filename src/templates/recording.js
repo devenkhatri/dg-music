@@ -55,7 +55,7 @@ export default function Recording({ data }) {
           </ul>
         </nav>
       <Segment inverted>
-        <SongPlayer src={data.airtable.data.MediaFile && data.airtable.data.MediaFile[0] && data.airtable.data.MediaFile[0].url} isAutoPlay={true} layout="stacked-reverse" />
+        <SongPlayer src={data.airtable.data.MediaFile && data.airtable.data.MediaFile[0] && data.airtable.data.MediaFile[0].url} isAutoPlay={true} layout="stacked-reverse" recordId={data.airtable.recordId} />
         <Image
           src={data.airtable.data.CoverImage && data.airtable.data.CoverImage.localFiles && data.airtable.data.CoverImage.localFiles[0].childImageSharp.fluid.src} fluid
         />
