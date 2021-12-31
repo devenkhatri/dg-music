@@ -50,7 +50,6 @@ export const incrementPlayCount = (store, recordId) => {
 }
 
 export const getPlayCountsAirtable = async (store) => {
-    console.log("***** keys", process.env.GATSBY_AIRTABLE_KEY, process.env.GATSBY_AIRTABLE_BASE)
     if (!process.env.GATSBY_AIRTABLE_KEY || !process.env.GATSBY_AIRTABLE_BASE) return;
     const airtablerecords = await getAirtableData(process.env.GATSBY_AIRTABLE_KEY, process.env.GATSBY_AIRTABLE_BASE, 'Recordings', 'Grid view');
     let allPlayCounts = [];
@@ -67,6 +66,10 @@ export const getPlayCountsAirtable = async (store) => {
 export const incrementPlayCountAirtable = async (store, recordId) => {
     if (!process.env.GATSBY_AIRTABLE_KEY || !process.env.GATSBY_AIRTABLE_BASE) return;
     let existingData = store.state.playCounts;
+    if(!existingData || existingData.length<=0) {
+        await getPlayCountsAirtable(store);
+        existingData = store.state.playCounts;
+    }
     const index = _.findIndex(existingData, { recordId: recordId });
     const newCount = existingData[index].count + 1;
     existingData[index] = {

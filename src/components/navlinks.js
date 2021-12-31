@@ -9,6 +9,9 @@ const NavLinks = () => {
       <Button as={Link} color="blue" to="/">
         Recordings
       </Button>
+      <Button as={Link} color="blue" to="/statistics">
+        Statistics
+      </Button>
     </>
   )
 }

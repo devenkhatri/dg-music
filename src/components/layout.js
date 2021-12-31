@@ -1,6 +1,6 @@
 //@ts-check
 import * as React from "react"
-import { Sidebar, Menu, Container, Button, Segment } from 'semantic-ui-react'
+import { Sidebar, Menu, Container, Button, Segment, Label } from 'semantic-ui-react'
 import Navbar from "./navbar"
 import NavLinks from "./navlinks"
 import { useStaticQuery, graphql } from "gatsby"
@@ -42,7 +42,7 @@ const Layout = ({ children }) => {
         />
         <Container as="main" style={{padding: '1rem 0'}}>{children}</Container>
         <Segment color="blue" inverted textAlign="center" as="footer">
-          © {new Date().getFullYear()}, Built with Gatsby
+          © {new Date().getFullYear()}, Built with <Label color="violet" as="a" target="_blank" href="https://www.gatsbyjs.org">Gatsby</Label> by <Label color="teal" as="a" target="_blank" href="https://www.devengoratela.com">Deven Goratela</Label>
         </Segment>
       </Sidebar.Pusher>
     </Sidebar.Pushable>
