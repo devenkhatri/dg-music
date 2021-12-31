@@ -59,7 +59,7 @@ export const getPlayCountsAirtable = async (store) => {
             count: record.fields.Plays || 0,
         })
     });
-    // console.log("***** allPlayCounts", allPlayCounts)
+    console.log("***** allPlayCounts", allPlayCounts)
     store.setState({ playCounts: allPlayCounts });
 }
 
