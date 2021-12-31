@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 import { Header, Card, Icon, Image } from 'semantic-ui-react'
@@ -9,22 +9,27 @@ import { useGlobal } from '../globalstore';
 export default function Home({ data }) {
   const allRecordings = (data.allRecordings && data.allRecordings.edges) || []
   const [globalState, globalActions] = useGlobal();
-  console.log("***** globalState",globalState)
+  const [reload, setReload] = useState(0);
+
+  useEffect(()=>{
+    setReload(1)
+    globalActions.getPlayCountsAirtable();
+  },[reload]);
   return (
     <Layout>
       <SEO title="Recordings" />
       <Header as='h1' icon textAlign='center'>
         <Icon name='soundcloud' circular inverted color="blue" />
-        <Header.Content>List of Recordings</Header.Content>
+        {/* <Header.Content>List of Recordings</Header.Content> */}
       </Header>
       <Card.Group doubling itemsPerRow={3} stackable>
         {allRecordings.map(({ node }) => (
           <Card key={node.recordId}>
             <a href={`/recording/${node.fields.slug}`}>
-              {/* <Image
+              <Image
                 src={node.data.CoverImage && node.data.CoverImage.localFiles && node.data.CoverImage.localFiles[0].childImageSharp.fluid.src} fluid
                 style={{ height: '13rem', objectFit: 'cover' }}
-              /> */}
+              />
             </a>
             <Card.Content>
               <Card.Header as="a" href={`/recording/${node.fields.slug}`}>{node.data.SongTitle}</Card.Header>
@@ -37,10 +42,7 @@ export default function Home({ data }) {
             </Card.Content>
             <Card.Content extra>
                 <Icon name='play' />
-                {node.data.Plays} - {globalActions.getPlayCount(node.recordId)} = {globalState.counter}
-                <button type="button" onClick={() => globalActions.addToCounter(1)}>
-                  +1 to global
-                </button>
+                {globalActions.getPlayCount(node.recordId)}
             </Card.Content>
           </Card>
         ))}

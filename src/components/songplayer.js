@@ -12,7 +12,7 @@ const SongPlayer = ({ src, isAutoPlay, layout, recordId }) => {
             loop
             showJumpControls={false}
             layout={layout}
-            onPlay={e => recordId && globalActions.incrementPlayCount(recordId)}
+            onPlay={e => recordId && globalActions.incrementPlayCountAirtable(recordId)}
         />
     );
 }
