@@ -24,10 +24,10 @@ module.exports = {
     {
       resolve: "gatsby-source-airtable",
       options: {
-        apiKey: process.env.AIRTABLE_KEY,
+        apiKey: process.env.GATSBY_AIRTABLE_KEY,
         tables: [
           {
-            baseId: process.env.AIRTABLE_BASE,
+            baseId: process.env.GATSBY_AIRTABLE_BASE,
             tableName: "Recordings",
             mapping: { 'CoverImage': 'fileNode' },
           },

@@ -12,7 +12,7 @@ export default function Home({ data }) {
   const [reload, setReload] = useState(0);
 
   useEffect(()=>{
-    setReload(1)
+    setReload(1)    
     globalActions.getPlayCountsAirtable();
   },[reload]);
   return (
@@ -20,7 +20,7 @@ export default function Home({ data }) {
       <SEO title="Recordings" />
       <Header as='h1' icon textAlign='center'>
         <Icon name='soundcloud' circular inverted color="blue" />
-        {/* <Header.Content>List of Recordings</Header.Content> */}
+        <Header.Content>List of Recordings</Header.Content>
       </Header>
       <Card.Group doubling itemsPerRow={3} stackable>
         {allRecordings.map(({ node }) => (

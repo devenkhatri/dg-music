@@ -50,8 +50,9 @@ export const incrementPlayCount = (store, recordId) => {
 }
 
 export const getPlayCountsAirtable = async (store) => {
-    if (!process.env.AIRTABLE_KEY || !process.env.AIRTABLE_BASE) return;
-    const airtablerecords = await getAirtableData(process.env.AIRTABLE_KEY, process.env.AIRTABLE_BASE, 'Recordings', 'Grid view');
+    console.log("***** keys", process.env.GATSBY_AIRTABLE_KEY, process.env.GATSBY_AIRTABLE_BASE)
+    if (!process.env.GATSBY_AIRTABLE_KEY || !process.env.GATSBY_AIRTABLE_BASE) return;
+    const airtablerecords = await getAirtableData(process.env.GATSBY_AIRTABLE_KEY, process.env.GATSBY_AIRTABLE_BASE, 'Recordings', 'Grid view');
     let allPlayCounts = [];
     airtablerecords && airtablerecords.forEach((record) => {
         allPlayCounts.push({
@@ -64,7 +65,7 @@ export const getPlayCountsAirtable = async (store) => {
 }
 
 export const incrementPlayCountAirtable = async (store, recordId) => {
-    if (!process.env.AIRTABLE_KEY || !process.env.AIRTABLE_BASE) return;
+    if (!process.env.GATSBY_AIRTABLE_KEY || !process.env.GATSBY_AIRTABLE_BASE) return;
     let existingData = store.state.playCounts;
     const index = _.findIndex(existingData, { recordId: recordId });
     const newCount = existingData[index].count + 1;
@@ -74,7 +75,7 @@ export const incrementPlayCountAirtable = async (store, recordId) => {
     }
     
     return new Promise(function (resolve, reject) {
-        const base = new Airtable({ apiKey: process.env.AIRTABLE_KEY }).base(process.env.AIRTABLE_BASE);
+        const base = new Airtable({ apiKey: process.env.GATSBY_AIRTABLE_KEY }).base(process.env.GATSBY_AIRTABLE_BASE);
         let updateData = [{
             "id": recordId,
             "fields": {}
