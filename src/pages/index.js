@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import Layout from "../components/layout"
 import SEO from "../components/seo"
-import { Header, Card, Icon, Image, Label, Menu } from 'semantic-ui-react'
+import { Header, Card, Icon, Image, Label, Menu, Divider } from 'semantic-ui-react'
 import { graphql } from 'gatsby';
 import SongPlayer from '../components/songplayer';
 import { useGlobal } from '../globalstore';
@@ -30,19 +30,21 @@ export default function Home({ data }) {
 
       {allRecordings && allRecordings.map((item) => (
         <>
-          <Header>
-            <Menu compact>
-              <Menu.Item as='a'>
-                <Icon name='calendar' />
-                <Moment format="MMM DD, YYYY">
-                  {item.fieldValue}
-                </Moment>
-                <Label color='blue' floating circular>
-                  {item.edges.length}
-                </Label>
-              </Menu.Item>
-            </Menu>
-          </Header>
+          <Divider horizontal>
+            <Header>
+              <Menu pointing secondary compact>
+                <Menu.Item active>
+                  <Icon name='calendar' />
+                  <Moment format="MMM DD, YYYY">
+                    {item.fieldValue}
+                  </Moment>
+                  <Label color='blue' circular>
+                    {item.edges.length}
+                  </Label>
+                </Menu.Item>
+              </Menu>
+            </Header>
+          </Divider>
           {/* <Label ribbon as="a" color="blue" style={{padding: '1rem', margin: '2rem 0 0 1rem'}}>
             <Moment format="MMM DD, YYYY">
               {item.fieldValue}
