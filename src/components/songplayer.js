@@ -1,18 +1,28 @@
 import React from 'react';
-import AudioPlayer from 'react-h5-audio-player';
-import 'react-h5-audio-player/lib/styles.css';
 import { useGlobal } from '../globalstore';
+import ReactJkMusicPlayer from 'react-jinke-music-player'
+import 'react-jinke-music-player/assets/index.css'
 
-const SongPlayer = ({ src, isAutoPlay, layout, recordId }) => {
+const SongPlayer = ({ playList, playIndex, autoPlay }) => {
     const [globalState, globalActions] = useGlobal();
     return (
-        <AudioPlayer
-            src={src}
-            autoPlay={isAutoPlay}
-            loop
-            showJumpControls={false}
-            layout={layout}
-            onPlay={e => recordId && globalActions.incrementPlayCountAirtable(recordId)}
+        <ReactJkMusicPlayer
+            glassBg
+            preload
+            showMediaSession
+            clearPriorAudioLists
+            remove={false}
+            mode='full'
+            showDownload={false}
+            spaceBar={true}
+            defaultPosition={{
+                top: 80,
+                left: 10,
+            }}
+            audioLists={playList}
+            autoPlay={autoPlay}
+            playIndex={playIndex || 0}
+            onAudioPlay={(audioInfo) => { audioInfo.recordId && globalActions.incrementPlayCountAirtable(audioInfo.recordId) }}
         />
     );
 }

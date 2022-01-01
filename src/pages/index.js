@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { Fragment, useEffect, useState } from 'react'
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 import { Header, Card, Icon, Image, Label, Menu, Divider } from 'semantic-ui-react'
@@ -15,7 +15,22 @@ export default function Home({ data }) {
 
   const [globalState, globalActions] = useGlobal();
   const [reload, setReload] = useState(0);
-
+  const [playIndex, setPlayIndex] = useState(0);
+  
+  //get all the songs into a playlist
+  const playList = [];
+  allRecordings && allRecordings.map((item)=>{
+    item.edges.map(({node}) => {
+      playList.push({
+        name: node.data.SongTitle,
+        singer: node.data.Singer,
+        cover: node.data.CoverImage && node.data.CoverImage.localFiles && node.data.CoverImage.localFiles[0].childImageSharp.fluid.src,
+        musicSrc: node.data.MediaFile && node.data.MediaFile[0] && node.data.MediaFile[0].url,
+        recordId: node.recordId,
+      })
+    })
+  })
+  
   useEffect(() => {
     setReload(1)
     globalActions.getPlayCountsAirtable();
@@ -29,7 +44,7 @@ export default function Home({ data }) {
       </Header>
 
       {allRecordings && allRecordings.map((item) => (
-        <>
+        <Fragment key={item.fieldValue}>
           <Divider horizontal>
             <Header>
               <Menu pointing secondary compact>
@@ -45,11 +60,6 @@ export default function Home({ data }) {
               </Menu>
             </Header>
           </Divider>
-          {/* <Label ribbon as="a" color="blue" style={{padding: '1rem', margin: '2rem 0 0 1rem'}}>
-            <Moment format="MMM DD, YYYY">
-              {item.fieldValue}
-            </Moment>
-          </Label> */}
           <Card.Group itemsPerRow={3} stackable>
             {item.edges.map(({ node }) => (
               <Card key={node.recordId}>
@@ -64,19 +74,22 @@ export default function Home({ data }) {
                   <Card.Meta>
                     <span className='date'>{node.data.RecordingDate}</span>
                   </Card.Meta>
-                  <Card.Description>
-                    <SongPlayer src={node.data.MediaFile && node.data.MediaFile[0] && node.data.MediaFile[0].url} isAutoPlay={false} layout="stacked-reverse" recordId={node.recordId} />
-                  </Card.Description>
+                  {/* <Card.Description>
+                    
+                  </Card.Description> */}
                 </Card.Content>
                 <Card.Content extra>
-                  <Icon name='play' />
+                  <Icon name='play' color='teal' link onClick={()=>{
+                    setPlayIndex(_.findIndex(playList, (item) => item.recordId == node.recordId))
+                  }} />
                   {globalActions.getPlayCount(node.recordId)}
                 </Card.Content>
               </Card>
             ))}
-          </Card.Group>
-        </>
+          </Card.Group>          
+        </Fragment>
       ))}
+      <SongPlayer playList={playList} playIndex={playIndex} />
       <div id="disqus_recommendations"></div>
     </Layout>
   );
