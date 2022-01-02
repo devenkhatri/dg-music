@@ -7,7 +7,6 @@ import SongPlayer from '../components/songplayer';
 import { useGlobal } from '../globalstore';
 import _ from 'lodash';
 import Moment from 'react-moment';
-import { isBrowser } from '../utils';
 
 
 export default function Home({ data }) {
@@ -48,7 +47,7 @@ export default function Home({ data }) {
         <Fragment key={item.fieldValue}>
           <Divider horizontal>
             <Header>
-              <Menu pointing secondary compact>
+              <Menu compact>
                 <Menu.Item active>
                   <Icon name='calendar' />
                   <Moment format="MMM DD, YYYY">
@@ -73,7 +72,11 @@ export default function Home({ data }) {
                 <Card.Content>
                   <Card.Header as="a" href={`/recording/${node.fields.slug}`}>{node.data.SongTitle}</Card.Header>
                   <Card.Meta>
-                    <span className='date'>{node.data.RecordingDate}</span>
+                    <span className='date'>
+                      <Moment fromNow>
+                        {node.data.RecordingDate}
+                      </Moment>
+                    </span>
                   </Card.Meta>
                   {/* <Card.Description>
                     
@@ -90,9 +93,7 @@ export default function Home({ data }) {
           </Card.Group>
         </Fragment>
       ))}
-      {isBrowser &&
-        <SongPlayer playList={playList} playIndex={playIndex} />
-      }
+      <SongPlayer playList={playList} playIndex={playIndex} />
       <div id="disqus_recommendations"></div>
     </Layout>
   );

@@ -7,7 +7,6 @@ import SongPlayer from '../components/songplayer'
 import { Disqus } from 'gatsby-plugin-disqus';
 import SharingModule from '../components/share'
 import { useGlobal } from '../globalstore'
-import { isBrowser } from '../utils'
 
 export default function Recording({ data }) {
   const title = `Listening to '${data.airtable.data.SongTitle}' from '${data.airtable.data.Singer}'`
@@ -69,6 +68,9 @@ export default function Recording({ data }) {
           No. of time played: {globalActions.getPlayCount(data.airtable.recordId) || data.airtable.data.Plays}
         </Item>
         <Item>
+          Recording Date: {data.airtable.data.RecordingDate}
+        </Item>
+        <Item>
           Singer: {data.airtable.data.Singer}
         </Item>
         <Item>
@@ -78,9 +80,7 @@ export default function Recording({ data }) {
           src={data.airtable.data.CoverImage && data.airtable.data.CoverImage.localFiles && data.airtable.data.CoverImage.localFiles[0].childImageSharp.fluid.src} fluid
         />
       </Segment>
-      {isBrowser &&
-        <SongPlayer playList={playList} autoPlay={true} />
-      }
+      <SongPlayer playList={playList} autoPlay={true} />
       <Disqus
         identifier={data.airtable.recordId}
         title={title}
