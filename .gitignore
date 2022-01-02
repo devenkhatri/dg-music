@@ -105,3 +105,4 @@ dist
 .tern-port
 static/.DS_Store
 .env.development
+.env.production

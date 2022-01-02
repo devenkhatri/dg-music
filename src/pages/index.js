@@ -7,6 +7,7 @@ import SongPlayer from '../components/songplayer';
 import { useGlobal } from '../globalstore';
 import _ from 'lodash';
 import Moment from 'react-moment';
+import { isBrowser } from '../utils';
 
 
 export default function Home({ data }) {
@@ -16,11 +17,11 @@ export default function Home({ data }) {
   const [globalState, globalActions] = useGlobal();
   const [reload, setReload] = useState(0);
   const [playIndex, setPlayIndex] = useState(0);
-  
+
   //get all the songs into a playlist
   const playList = [];
-  allRecordings && allRecordings.map((item)=>{
-    item.edges.map(({node}) => {
+  allRecordings && allRecordings.map((item) => {
+    item.edges.map(({ node }) => {
       playList.push({
         name: node.data.SongTitle,
         singer: node.data.Singer,
@@ -30,7 +31,7 @@ export default function Home({ data }) {
       })
     })
   })
-  
+
   useEffect(() => {
     setReload(1)
     globalActions.getPlayCountsAirtable();
@@ -79,17 +80,19 @@ export default function Home({ data }) {
                   </Card.Description> */}
                 </Card.Content>
                 <Card.Content extra>
-                  <Icon name='play' color='teal' link onClick={()=>{
+                  <Icon name='play' color='teal' link onClick={() => {
                     setPlayIndex(_.findIndex(playList, (item) => item.recordId == node.recordId))
                   }} />
                   {globalActions.getPlayCount(node.recordId)}
                 </Card.Content>
               </Card>
             ))}
-          </Card.Group>          
+          </Card.Group>
         </Fragment>
       ))}
-      <SongPlayer playList={playList} playIndex={playIndex} />
+      {isBrowser &&
+        <SongPlayer playList={playList} playIndex={playIndex} />
+      }
       <div id="disqus_recommendations"></div>
     </Layout>
   );

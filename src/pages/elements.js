@@ -1,8 +1,7 @@
 import React from "react"
 import { Button, Container, Divider, Grid, Header, Image, Menu, Segment } from 'semantic-ui-react'
 
-export default function Home() {
-  console.log("***** homepage")
+export default function Elements() {
   return (
     <Container style={{ marginTop: '3em' }}>
     <Header as='h1'>Theming Example</Header>

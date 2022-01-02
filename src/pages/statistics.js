@@ -7,10 +7,11 @@ import { graphql } from 'gatsby';
 import _ from 'lodash';
 import Moment from 'react-moment';
 import SongPlayer from "../components/songplayer";
+import { isBrowser } from "../utils";
 
 const SongStatistics = ({ data }) => {
   let allRecordings = (data.allRecordings && data.allRecordings.group) || []
-  allRecordings = _.orderBy(allRecordings, ['fieldValue'], ['desc'])
+  allRecordings = _.orderBy(allRecordings, ['fieldValue'], ['desc'])  
 
   //get all the songs into a playlist
   const playList = [];
@@ -101,7 +102,9 @@ const SongStatistics = ({ data }) => {
           </Table.Body>
         </Table>
       </Container>
-      <SongPlayer playList={playList} playIndex={0} />
+      {isBrowser &&
+        <SongPlayer playList={playList} playIndex={0} />
+      }
     </Layout>
   );
 }
