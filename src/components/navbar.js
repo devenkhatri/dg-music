@@ -22,13 +22,13 @@ const Navbar = ({ siteTitle, setVisible, visible }) => {
         <Container>
           <Grid>
             <Grid.Row>
-              <Grid.Column width="6" verticalAlign="middle" as={Link} to="/">
+              <Grid.Column width="7" verticalAlign="middle" as={Link} to="/">
                 <Header as="h1" size="small" inverted>
                 <img width="100" src={Logo} />
                   {siteTitle}
                 </Header>
               </Grid.Column>
-              <Grid.Column width="10" verticalAlign="middle" only="mobile">
+              <Grid.Column width="9" verticalAlign="middle" only="mobile">
                 <Header size="tiny" textAlign="right">
                   <Icon
                     name="bars"
@@ -40,7 +40,7 @@ const Navbar = ({ siteTitle, setVisible, visible }) => {
                 </Header>
               </Grid.Column>
               <Grid.Column
-                widescreen="10"
+                widescreen="9"
                 only="computer tablet"
                 textAlign="right"
                 verticalAlign="middle" 
