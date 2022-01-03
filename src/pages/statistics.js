@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect, useState } from "react";
-import { Header, Statistic, Icon, Segment, Container, Table, Label } from 'semantic-ui-react'
+import { Header, Statistic, Icon, Segment, Container, Table, Label, Grid, Divider } from 'semantic-ui-react'
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 import { useGlobal } from '../globalstore';
@@ -13,13 +13,15 @@ const SongStatistics = ({ data }) => {
   allRecordings = _.orderBy(allRecordings, ['fieldValue'], ['desc'])
 
   //get all the songs into a playlist
+  let totalSongs = 0;
   const playList = [];
   allRecordings && allRecordings.map((item) => {
+    totalSongs += item.edges.length;
     item.edges.map(({ node }) => {
       playList.push({
         name: node.data.SongTitle,
         singer: node.data.Singer,
-        cover: node.data.CoverImage && node.data.CoverImage.localFiles && node.data.CoverImage.localFiles[0].childImageSharp.fluid.tracedSVG,
+        cover: node.data.CoverImage && node.data.CoverImage.localFiles && node.data.CoverImage.localFiles[0].childImageSharp.fluid.src,
         musicSrc: node.data.MediaFile && node.data.MediaFile[0] && node.data.MediaFile[0].url,
         recordId: node.recordId,
       })
@@ -56,12 +58,27 @@ const SongStatistics = ({ data }) => {
         <Header.Content>Songs Statistics</Header.Content>
       </Header>
       <Container textAlign="center">
-        <Segment placeholder>
-          <Statistic color='blue' size='huge'>
-            <Statistic.Value>{grandTotal}</Statistic.Value>
-            <Statistic.Label style={{ paddingTop: '1rem' }}>Total times songs played</Statistic.Label>
-          </Statistic>
-        </Segment>
+        <Grid columns={2} divided>
+          <Grid.Row>
+            <Grid.Column>
+              <Segment placeholder>
+                <Statistic color='blue' size='huge'>
+                  <Statistic.Value>{totalSongs}</Statistic.Value>
+                  <Statistic.Label style={{ paddingTop: '1rem' }}>Total songs</Statistic.Label>
+                </Statistic>
+              </Segment>
+            </Grid.Column>
+            <Grid.Column>
+              <Segment placeholder>
+                <Statistic color='blue' size='huge'>
+                  <Statistic.Value>{grandTotal}</Statistic.Value>
+                  <Statistic.Label style={{ paddingTop: '1rem' }}>Total times songs played</Statistic.Label>
+                </Statistic>
+              </Segment>
+            </Grid.Column>
+          </Grid.Row>
+        </Grid>
+        <Divider />
         <Label size="massive" color="blue">
           No. of times Individual Songs played
         </Label>
@@ -133,7 +150,6 @@ query {
                 childImageSharp {
                   fluid {
                     src
-                    tracedSVG
                   }
                 }
               }

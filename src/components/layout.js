@@ -22,7 +22,8 @@ const Layout = ({ children }) => {
     <Sidebar.Pushable>
       <Sidebar
         as={Menu}
-        animation="push"
+        animation="overlay"
+        direction="top"
         color="blue"
         inverted
         onHide={() => setVisible(false)}
@@ -30,7 +31,7 @@ const Layout = ({ children }) => {
         visible={visible}
         width="thin"
       >
-        <Button.Group vertical style={{ marginTop: "3rem" }}>
+        <Button.Group vertical style={{ margin: "3rem 0" }}>
           <NavLinks />
         </Button.Group>
       </Sidebar>
