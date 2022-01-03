@@ -23,7 +23,7 @@ const Layout = ({ children }) => {
       <Sidebar
         as={Menu}
         animation="overlay"
-        direction="top"
+        // direction="top"
         color="blue"
         inverted
         onHide={() => setVisible(false)}

@@ -58,7 +58,7 @@ const SongStatistics = ({ data }) => {
         <Header.Content>Songs Statistics</Header.Content>
       </Header>
       <Container textAlign="center">
-        <Grid columns={2} divided>
+        <Grid columns={2} divided relaxed stackable>
           <Grid.Row>
             <Grid.Column>
               <Segment placeholder>

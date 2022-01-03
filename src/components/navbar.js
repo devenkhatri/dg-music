@@ -1,6 +1,7 @@
 import * as React from "react"
 import "semantic-ui-css/semantic.min.css"
 import { Link } from "gatsby"
+import Logo from '../images/icon.png'
 
 import {
   Grid,
@@ -9,6 +10,7 @@ import {
   Container,
   Segment,
   Button,
+  Menu,
 } from "semantic-ui-react"
 
 import NavLinks from "./navlinks"
@@ -16,16 +18,17 @@ import NavLinks from "./navlinks"
 const Navbar = ({ siteTitle, setVisible, visible }) => {
   return (
     <>
-      <Segment inverted color="blue" as="nav" attached>
+      <Segment inverted color="blue" as="nav">
         <Container>
           <Grid>
             <Grid.Row>
               <Grid.Column width="6" verticalAlign="middle" as={Link} to="/">
                 <Header as="h1" size="small" inverted>
+                <img width="100" src={Logo} />
                   {siteTitle}
                 </Header>
               </Grid.Column>
-              <Grid.Column width="10" only="mobile">
+              <Grid.Column width="10" verticalAlign="middle" only="mobile">
                 <Header size="tiny" textAlign="right">
                   <Icon
                     name="bars"
@@ -40,10 +43,11 @@ const Navbar = ({ siteTitle, setVisible, visible }) => {
                 widescreen="10"
                 only="computer tablet"
                 textAlign="right"
+                verticalAlign="middle" 
               >
                 <Button.Group as="ul">
                   <NavLinks />
-                </Button.Group>
+                </Button.Group>                
               </Grid.Column>
             </Grid.Row>
           </Grid>
