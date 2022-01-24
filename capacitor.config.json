@@ -1,0 +1,6 @@
+{
+  "appId": "com.devengoratela.music",
+  "appName": "Deven Goratela - Music Recordings",
+  "webDir": "public",
+  "bundledWebRuntime": false
+}
