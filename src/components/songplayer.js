@@ -24,7 +24,7 @@ const SongPlayer = ({ playList, playIndex, autoPlay }) => {
                         left: '80%',
                     }}
                     audioLists={playList}
-                    autoPlay={autoPlay}
+                    autoPlay={false}
                     playIndex={playIndex || 0}
                     onAudioPlay={(audioInfo) => { audioInfo.recordId && globalActions.incrementPlayCountAirtable(audioInfo.recordId) }}
                 />

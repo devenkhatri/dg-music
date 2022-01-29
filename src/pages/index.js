@@ -7,6 +7,7 @@ import SongPlayer from '../components/songplayer';
 import { useGlobal } from '../globalstore';
 import _ from 'lodash';
 import Moment from 'react-moment';
+import { Link } from "gatsby";
 
 
 export default function Home({ data }) {
@@ -63,14 +64,18 @@ export default function Home({ data }) {
           <Card.Group itemsPerRow={3} stackable>
             {item.edges.map(({ node }) => (
               <Card key={node.recordId}>
-                <a href={`/recording/${node.fields.slug}`}>
+                <Link to={`/recording/${node.fields.slug}`}>
                   <Image
                     src={node.data.CoverImage && node.data.CoverImage.localFiles && node.data.CoverImage.localFiles[0].childImageSharp.fluid.src} fluid
                     style={{ height: '13rem', objectFit: 'cover' }}
                   />
-                </a>
+                </Link>
                 <Card.Content>
-                  <Card.Header as="a" href={`/recording/${node.fields.slug}`}>{node.data.SongTitle}</Card.Header>
+                  <Card.Header>
+                    <Link to={`/recording/${node.fields.slug}`}>
+                      {node.data.SongTitle}
+                    </Link>
+                  </Card.Header>
                   <Card.Meta>
                     <span className='date'>
                       <Moment fromNow>

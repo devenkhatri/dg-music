@@ -3,7 +3,7 @@ import { Header, Statistic, Icon, Segment, Container, Table, Label, Grid, Divide
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 import { useGlobal } from '../globalstore';
-import { graphql } from 'gatsby';
+import { graphql, Link } from 'gatsby';
 import _ from 'lodash';
 import Moment from 'react-moment';
 import SongPlayer from "../components/songplayer";
@@ -102,9 +102,9 @@ const SongStatistics = ({ data }) => {
                 {item.edges.map(({ node }) => (
                   <Table.Row key={node.recordId}>
                     <Table.Cell>
-                      <a href={`/recording/${node.fields.slug}`}>
+                      <Link to={`/recording/${node.fields.slug}`}>
                         {node.data.SongTitle}
-                      </a>
+                      </Link>
                     </Table.Cell>
                     <Table.Cell textAlign='left'>
                       <Icon name='music' />
