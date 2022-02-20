@@ -54,15 +54,6 @@ function SEO({ title, description, image }) {
       <meta name="twitter:description" content={metaDescription} />
       <meta name="twitter:creator" content={metaAuthor} />
       <meta name="twitter:image" content={metaImage} />
-      <script type="text/javascript">
-        {`
-              (function() { // REQUIRED CONFIGURATION VARIABLE: EDIT THE SHORTNAME BELOW
-              var d = document, s = d.createElement('script'); // IMPORTANT: Replace EXAMPLE with your forum shortname!
-              s.src = 'https://devengoratela.disqus.com/recommendations.js'; s.setAttribute('data-timestamp', +new Date());
-              (d.head || d.body).appendChild(s);
-              })();
-            `}
-      </script>
     </Helmet>
   )
 }

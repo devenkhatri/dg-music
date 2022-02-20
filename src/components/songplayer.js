@@ -35,7 +35,7 @@ const SongPlayer = ({ playList, playIndex, autoPlay }) => {
                 autoPlay={autoPlay}
                 controls
                 className='songplayer'
-                // onPlay={playList[playIndex] && globalActions.incrementPlayCountAirtable(playList[playIndex].recordId)}
+                // onPlaying={playList[playIndex] && globalActions.incrementPlayCountAirtable(playList[playIndex].recordId)}
             />
             <Marquee pauseOnHover gradient={false}>{playList[playIndex] ? playList[playIndex].name : 'No Song Selected'}</Marquee>
         </Segment>

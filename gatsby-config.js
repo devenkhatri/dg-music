@@ -33,13 +33,7 @@ module.exports = {
           },
         ]
       }
-    },
-    {
-      resolve: `gatsby-plugin-disqus`,
-      options: {
-        shortname: `devengoratela`
-      }
-    },
+    },    
     {
       resolve: `gatsby-plugin-google-gtag`,
       options: {

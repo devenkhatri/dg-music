@@ -4,7 +4,6 @@ import Layout from "../components/layout"
 import SEO from "../components/seo"
 import { Header, Segment, Icon, Breadcrumb, Image, Item } from 'semantic-ui-react'
 import SongPlayer from '../components/songplayer'
-import { Disqus } from 'gatsby-plugin-disqus';
 import SharingModule from '../components/share'
 import { useGlobal } from '../globalstore'
 
@@ -81,11 +80,6 @@ export default function Recording({ data }) {
           src={data.airtable.data.CoverImage && data.airtable.data.CoverImage.localFiles && data.airtable.data.CoverImage.localFiles[0].childImageSharp.fluid.src} fluid
         />
       </Segment>      
-      <Disqus
-        identifier={data.airtable.recordId}
-        title={title}
-        url={currentUrl}
-      />      
     </Layout>
   )
 }
