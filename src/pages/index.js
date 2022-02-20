@@ -37,13 +37,13 @@ export default function Home({ data }) {
     globalActions.getPlayCountsAirtable();
   }, [reload]);
   return (
-    <Layout>
+    <Layout height="100%">
       <SEO title="Recordings" />
       <Header as='h1' icon textAlign='center'>
         <Icon name='soundcloud' circular inverted color="blue" />
         <Header.Content>List of Recordings</Header.Content>
       </Header>
-
+      <SongPlayer playList={playList} playIndex={playIndex} />      
       {allRecordings && allRecordings.map((item) => (
         <Fragment key={item.fieldValue}>
           <Divider horizontal>
@@ -98,8 +98,7 @@ export default function Home({ data }) {
           </Card.Group>
         </Fragment>
       ))}
-      <SongPlayer playList={playList} playIndex={playIndex} />
-      <div id="disqus_recommendations"></div>
+      {/* <SongPlayer playList={playList} playIndex={playIndex} />       */}
     </Layout>
   );
 }

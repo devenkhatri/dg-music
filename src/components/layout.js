@@ -35,7 +35,7 @@ const Layout = ({ children }) => {
           <NavLinks />
         </Button.Group>
       </Sidebar>
-      <Sidebar.Pusher dimmed={visible} style={{position:'relative'}}>
+      <Sidebar.Pusher dimmed={visible}>
         <Navbar
           siteTitle={data.site.siteMetadata?.title}
           setVisible={setVisible}

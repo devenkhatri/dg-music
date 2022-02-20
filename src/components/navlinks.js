@@ -12,6 +12,9 @@ const NavLinks = () => {
       <Button as={Link} color="blue" to="/statistics">
         Statistics
       </Button>
+      <Button as={Link} color="blue" to="/random">
+        Random Song
+      </Button>
     </Grid>
   )
 }

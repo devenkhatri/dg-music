@@ -78,6 +78,7 @@ const SongStatistics = ({ data }) => {
             </Grid.Column>
           </Grid.Row>
         </Grid>
+        <SongPlayer playList={playList} playIndex={0} />
         <Divider />
         <Label size="massive" color="blue">
           No. of times Individual Songs played
@@ -117,8 +118,7 @@ const SongStatistics = ({ data }) => {
 
           </Table.Body>
         </Table>
-      </Container>
-      <SongPlayer playList={playList} playIndex={0} />
+      </Container>      
     </Layout>
   );
 }

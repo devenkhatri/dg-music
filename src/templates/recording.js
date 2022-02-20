@@ -63,6 +63,7 @@ export default function Recording({ data }) {
           </li>
         </ul>
       </nav>
+      <SongPlayer playList={playList} playIndex={0} autoPlay={true} />
       <Segment inverted>
         <Item>
           No. of time played: {globalActions.getPlayCount(data.airtable.recordId) || data.airtable.data.Plays}
@@ -79,14 +80,12 @@ export default function Recording({ data }) {
         <Image
           src={data.airtable.data.CoverImage && data.airtable.data.CoverImage.localFiles && data.airtable.data.CoverImage.localFiles[0].childImageSharp.fluid.src} fluid
         />
-      </Segment>
-      <SongPlayer playList={playList} autoPlay={true} />
+      </Segment>      
       <Disqus
         identifier={data.airtable.recordId}
         title={title}
         url={currentUrl}
-      />
-      <div id="disqus_recommendations"></div>
+      />      
     </Layout>
   )
 }
