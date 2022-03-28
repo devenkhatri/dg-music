@@ -40,7 +40,7 @@ export default function Home({ data }) {
     <>
       <Menu fixed='bottom' inverted>
         <div style={{ width: '100%' }}>
-          <SongPlayer playList={playList} playIndex={playIndex} />
+          <SongPlayer playList={playList} playIndex={playIndex} autoPlay/>
         </div>
       </Menu>
 
@@ -96,6 +96,7 @@ export default function Home({ data }) {
                   </Card.Content>
                   <Card.Content extra>
                     <Icon name='play' color='teal' link onClick={() => {
+                      // globalActions.incrementPlayCountAirtable(node.recordId);
                       setPlayIndex(_.findIndex(playList, (item) => item.recordId == node.recordId))
                     }} />
                     {globalActions.getPlayCount(node.recordId)}
