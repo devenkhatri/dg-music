@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect, useState } from 'react'
 import Layout from "../components/layout"
 import SEO from "../components/seo"
-import { Header, Card, Icon, Image, Label, Menu, Divider } from 'semantic-ui-react'
+import { Header, Card, Icon, Image, Label, Menu, Divider, Container, Segment } from 'semantic-ui-react'
 import { graphql } from 'gatsby';
 import SongPlayer from '../components/songplayer';
 import { useGlobal } from '../globalstore';
@@ -37,69 +37,77 @@ export default function Home({ data }) {
     globalActions.getPlayCountsAirtable();
   }, [reload]);
   return (
-    <Layout height="100%">
-      <SEO title="Recordings" />
-      <Header as='h1' icon textAlign='center'>
-        <Icon name='soundcloud' circular inverted color="blue" />
-        <Header.Content>List of Recordings</Header.Content>
-      </Header>
-      <SongPlayer playList={playList} playIndex={playIndex} />      
-      {allRecordings && allRecordings.map((item) => (
-        <Fragment key={item.fieldValue}>
-          <Divider horizontal>
-            <Header>
-              <Menu compact>
-                <Menu.Item active>
-                  <Icon name='calendar' />
-                  <Moment format="MMM DD, YYYY">
-                    {item.fieldValue}
-                  </Moment>
-                  <Label color='blue' circular>
-                    {item.edges.length}
-                  </Label>
-                </Menu.Item>
-              </Menu>
-            </Header>
-          </Divider>
-          <Card.Group itemsPerRow={3} stackable>
-            {item.edges.map(({ node }) => (
-              <Card key={node.recordId}>
-                <Link to={`/recording/${node.fields.slug}`}>
-                  <Image
-                    src={node.data.CoverImage && node.data.CoverImage.localFiles && node.data.CoverImage.localFiles[0].childImageSharp.fluid.src} fluid
-                    style={{ height: '13rem', objectFit: 'cover' }}
-                  />
-                </Link>
-                <Card.Content>
-                  <Card.Header>
-                    <Link to={`/recording/${node.fields.slug}`}>
-                      {node.data.SongTitle}
-                    </Link>
-                  </Card.Header>
-                  <Card.Meta>
-                    <span className='date'>
-                      <Moment fromNow>
-                        {node.data.RecordingDate}
-                      </Moment>
-                    </span>
-                  </Card.Meta>
-                  {/* <Card.Description>
+    <>
+      <Menu fixed='bottom' inverted>
+        <div style={{ width: '100%' }}>
+          <SongPlayer playList={playList} playIndex={playIndex} />
+        </div>
+      </Menu>
+
+      <Layout height="100%">
+        <SEO title="Recordings" />
+        <Header as='h1' icon textAlign='center'>
+          <Icon name='soundcloud' circular inverted color="blue" />
+          <Header.Content>List of Recordings</Header.Content>
+        </Header>
+
+        {allRecordings && allRecordings.map((item) => (
+          <Fragment key={item.fieldValue}>
+            <Divider horizontal>
+              <Header>
+                <Menu compact>
+                  <Menu.Item active>
+                    <Icon name='calendar' />
+                    <Moment format="MMM DD, YYYY">
+                      {item.fieldValue}
+                    </Moment>
+                    <Label color='blue' circular>
+                      {item.edges.length}
+                    </Label>
+                  </Menu.Item>
+                </Menu>
+              </Header>
+            </Divider>
+            <Card.Group itemsPerRow={3} stackable>
+              {item.edges.map(({ node }) => (
+                <Card key={node.recordId}>
+                  <Link to={`/recording/${node.fields.slug}`}>
+                    <Image
+                      src={node.data.CoverImage && node.data.CoverImage.localFiles && node.data.CoverImage.localFiles[0].childImageSharp.fluid.src} fluid
+                      style={{ height: '13rem', objectFit: 'cover' }}
+                    />
+                  </Link>
+                  <Card.Content>
+                    <Card.Header>
+                      <Link to={`/recording/${node.fields.slug}`}>
+                        {node.data.SongTitle}
+                      </Link>
+                    </Card.Header>
+                    <Card.Meta>
+                      <span className='date'>
+                        <Moment fromNow>
+                          {node.data.RecordingDate}
+                        </Moment>
+                      </span>
+                    </Card.Meta>
+                    {/* <Card.Description>
                     
                   </Card.Description> */}
-                </Card.Content>
-                <Card.Content extra>
-                  <Icon name='play' color='teal' link onClick={() => {
-                    setPlayIndex(_.findIndex(playList, (item) => item.recordId == node.recordId))
-                  }} />
-                  {globalActions.getPlayCount(node.recordId)}
-                </Card.Content>
-              </Card>
-            ))}
-          </Card.Group>
-        </Fragment>
-      ))}
-      {/* <SongPlayer playList={playList} playIndex={playIndex} />       */}
-    </Layout>
+                  </Card.Content>
+                  <Card.Content extra>
+                    <Icon name='play' color='teal' link onClick={() => {
+                      setPlayIndex(_.findIndex(playList, (item) => item.recordId == node.recordId))
+                    }} />
+                    {globalActions.getPlayCount(node.recordId)}
+                  </Card.Content>
+                </Card>
+              ))}
+            </Card.Group>
+          </Fragment>
+        ))}
+        {/* <SongPlayer playList={playList} playIndex={playIndex} />       */}
+      </Layout>
+    </>
   );
 }
 
