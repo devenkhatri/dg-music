@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link, graphql } from 'gatsby'
 import Layout from "../components/layout"
 import SEO from "../components/seo"
@@ -12,6 +12,7 @@ export default function Recording({ data }) {
   const currentUrl = data.site.siteMetadata.siteUrl + '/recording/' + data.airtable.fields.slug
   const { previous, next } = data
   const [globalState, globalActions] = useGlobal();
+  const [reload, setReload] = useState(0);
   const playList = [{
     name: data.airtable.data.SongTitle,
     singer: data.airtable.data.Singer,
@@ -19,6 +20,10 @@ export default function Recording({ data }) {
     musicSrc: data.airtable.data.MediaFile && data.airtable.data.MediaFile[0] && data.airtable.data.MediaFile[0].url,
     recordId: data.airtable.recordId,
   }];
+  useEffect(() => {
+    setReload(1)
+    globalActions.getPlayCountsAirtable();
+  }, [reload]);
   return (
     <Layout>
       <SEO
