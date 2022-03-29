@@ -35,13 +35,17 @@ const Layout = ({ children }) => {
           <NavLinks />
         </Button.Group>
       </Sidebar>
+      <Menu fixed='top' inverted>
+        <div style={{ width: '100%' }}>
+          <Navbar
+            siteTitle={data.site.siteMetadata?.title}
+            setVisible={setVisible}
+            visible={visible}
+          />
+        </div>
+      </Menu>
       <Sidebar.Pusher dimmed={visible}>
-        <Navbar
-          siteTitle={data.site.siteMetadata?.title}
-          setVisible={setVisible}
-          visible={visible}
-        />
-        <Container as="main" style={{padding: '1rem 0'}}>{children}</Container>
+        <Container as="main" style={{ padding: '6rem 0' }}>{children}</Container>
         <Segment color="blue" inverted textAlign="center" as="footer">
           © {new Date().getFullYear()}, Built with <Label color="violet" as="a" target="_blank" href="https://www.gatsbyjs.org">Gatsby</Label> by <Label color="teal" as="a" target="_blank" href="https://www.devengoratela.com">Deven Goratela</Label>
         </Segment>
